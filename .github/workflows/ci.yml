@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tap local repo
+        run: brew tap magnuswahlstrand/tap "$GITHUB_WORKSPACE"
+
+      - name: Brew style
+        run: brew style homebrew-release-app
+
+      - name: Brew audit
+        run: brew audit --formula --strict --no-online homebrew-release-app
