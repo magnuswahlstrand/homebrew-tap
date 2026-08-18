@@ -12,7 +12,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Tap local repo
-        run: brew tap magnuswahlstrand/tap "$GITHUB_WORKSPACE"
+        run: |
+          brew tap magnuswahlstrand/tap "$GITHUB_WORKSPACE"
+          brew trust magnuswahlstrand/tap
 
       - name: Brew style
         run: brew style homebrew-release-app
