@@ -2,7 +2,7 @@ class HomebrewReleaseApp < Formula
   desc "Test CLI for exercising Homebrew releases"
   homepage "https://github.com/magnuswahlstrand/homebrew-app"
   url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_darwin_arm64.tar.gz"
-  version "0.1.1"
+  version "0.1.2"
   sha256 "d39d9507afcf073775a8b45fb017df3452f21b8a5d984ca8984b674266cc0d11"
   license "MIT"
 
