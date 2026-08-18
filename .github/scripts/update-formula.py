@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import hashlib
-import re
 import sys
 import tempfile
 import urllib.request
@@ -23,30 +22,66 @@ def sha256_of(url):
         return digest.hexdigest()
 
 
-def main():
-    tag = sys.argv[1].lstrip("v")
-    with open(FORMULA) as fh:
-        text = fh.read()
-
-    text = re.sub(
-        r'(version ")[^"]*(")', rf"\g<1>{tag}\g<2>", text, count=1
+def formula_for(version, digests):
+    archive = lambda suffix: (
+        f"https://github.com/{APP_REPO}/releases/download/v{version}/"
+        f"{PROJECT}_{version}_{suffix}.tar.gz"
     )
+    return f'''class HomebrewReleaseApp < Formula
+  desc "Test CLI for exercising Homebrew releases"
+  homepage "https://github.com/{APP_REPO}"
+  url "{archive("darwin_arm64")}"
+  version "{version}"
+  sha256 "{digests["darwin_arm64"]}"
+  license "MIT"
 
+  on_macos do
+    on_arm do
+      url "{archive("darwin_arm64")}"
+      sha256 "{digests["darwin_arm64"]}"
+    end
+    on_intel do
+      url "{archive("darwin_amd64")}"
+      sha256 "{digests["darwin_amd64"]}"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "{archive("linux_arm64")}"
+      sha256 "{digests["linux_arm64"]}"
+    end
+    on_intel do
+      url "{archive("linux_amd64")}"
+      sha256 "{digests["linux_amd64"]}"
+    end
+  end
+
+  def install
+    os = OS.mac? ? "darwin" : "linux"
+    arch = Hardware::CPU.arm? ? "arm64" : "amd64"
+    bin.install "homebrew-release-app-#{{os}}-#{{arch}}" => "homebrew-release-app"
+  end
+
+  test do
+    assert_match "homebrew-release-app", shell_output("#{{bin}}/homebrew-release-app --version")
+  end
+end
+'''
+
+
+def main():
+    version = sys.argv[1].lstrip("v")
+    digests = {}
     for suffix in SUFFIXES:
         url = (
-            f"https://github.com/{APP_REPO}/releases/download/v{tag}/"
-            f"{PROJECT}_{tag}_{suffix}.tar.gz"
+            f"https://github.com/{APP_REPO}/releases/download/v{version}/"
+            f"{PROJECT}_{version}_{suffix}.tar.gz"
         )
-        digest = sha256_of(url)
-        text = re.sub(
-            rf'(url "{url}"\s*\n\s*sha256 ")[0-9a-f]{{64}}(")',
-            rf"\g<1>{digest}\g<2>",
-            text,
-        )
-
+        digests[suffix] = sha256_of(url)
     with open(FORMULA, "w") as fh:
-        fh.write(text)
-    print(f"updated {FORMULA} to {tag}")
+        fh.write(formula_for(version, digests))
+    print(f"updated {FORMULA} to {version}")
 
 
 if __name__ == "__main__":

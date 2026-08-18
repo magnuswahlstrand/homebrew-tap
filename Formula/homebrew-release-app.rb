@@ -1,30 +1,30 @@
 class HomebrewReleaseApp < Formula
   desc "Test CLI for exercising Homebrew releases"
   homepage "https://github.com/magnuswahlstrand/homebrew-app"
-  url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_darwin_arm64.tar.gz"
+  url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.2/homebrew-release-app_0.1.2_darwin_arm64.tar.gz"
   version "0.1.2"
-  sha256 "d39d9507afcf073775a8b45fb017df3452f21b8a5d984ca8984b674266cc0d11"
+  sha256 "6f8a6018f7c5eb15f41762282ca77f710538a9d3d22addde1d6480b2d50dd88a"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_darwin_arm64.tar.gz"
-      sha256 "d39d9507afcf073775a8b45fb017df3452f21b8a5d984ca8984b674266cc0d11"
+      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.2/homebrew-release-app_0.1.2_darwin_arm64.tar.gz"
+      sha256 "6f8a6018f7c5eb15f41762282ca77f710538a9d3d22addde1d6480b2d50dd88a"
     end
     on_intel do
-      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_darwin_amd64.tar.gz"
-      sha256 "cab8b54cee7d711d6b4620ccb03194113044baf18b383dec12d457bb3e849412"
+      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.2/homebrew-release-app_0.1.2_darwin_amd64.tar.gz"
+      sha256 "f5ff97563237a838ca2e250a12b4df971b8a40740a732410c8f4a32decd93f65"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_linux_arm64.tar.gz"
-      sha256 "a210442078f019239da7d1b568cd1f8df1bd87f0fe74ee72fcebdf9c2cf6de38"
+      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.2/homebrew-release-app_0.1.2_linux_arm64.tar.gz"
+      sha256 "ed5cdb803a533a4904c6554653c28ce680e2d773b90b2c4d44cf2f5dead2de56"
     end
     on_intel do
-      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.1/homebrew-release-app_0.1.1_linux_amd64.tar.gz"
-      sha256 "9d250e76ae205100106b3d4c307a7b263edd2fc37fc0f7d5cb634f7cbc52fec8"
+      url "https://github.com/magnuswahlstrand/homebrew-app/releases/download/v0.1.2/homebrew-release-app_0.1.2_linux_amd64.tar.gz"
+      sha256 "6e547f19a9d719fb57ef961657429f019146058bbfa4bb0e4360c7ce56c85536"
     end
   end
 
